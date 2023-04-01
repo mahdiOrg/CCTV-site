@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block additional_links %}
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary p-5 hero-header mb-5">
+        <div class="row py-5">
+            <div class="col-12 text-center">
+                <h1 class="display-1 text-white animated zoomIn">محصولات ما</h1>
+                <a href="{% url 'home_app:home' %}" class="h4 text-white">صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+    <div class="container py-5 wow fadeInUp " data-wow-delay="0.1s">
+        <div class="row g-5">
+            <!-- Pricing Plan Start -->
+            <div class="container-fluid py-5 wow fadeInUp " data-wow-delay="0.1s" style="margin-bottom: 75px;">
+                <div class="container">
+                    <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                        <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Pricing Plan</h5>
+                        <h1 class="display-5 mb-0">جدیدترین محصولات امنیتی</h1>
+                    </div>
+                    <div class=" row g-5 ">
+                        {% for product in products %}
+                            {#__________________________________________________________________________________#}
+
+                            <div class="mx-2 max-w-sm bg-blue-200 rounded-lg shadow-md ">
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img class="p-8 rounded-t-lg product-image "
+                                         src="{{ product.image.url }}"
+                                         alt="{{ product.titel }}"/>
+                                </a>
+                                <div class="px-5 pb-5">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <h2 class="text-center text-3xl p-3">{{ product.title }}</h2>
+                                    </a>
+                                    <h5 class="text-right text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                        {{ product.preview }}</h5>
+                                    <div class="flex flex-col justify-between">
+                                        <span class="p-3 text-3xl font-bold text-gray-900 dark:text-white">{{ product.price }}</span>
+                                        <a href="{{ product.get_absolute_url }}"
+                                           class="  h-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">مشاهده
+                                            جزییات
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {#__________________________________________________________________________________#}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- Pricing Plan End -->
+
+
+            {#                    start pageination                     #}
+            {% if page_obj.has_other_pages %}
+
+                <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-lg m-0">
+                            <li class="page-item ">
+                                {% if page_obj.has_previous %}
+                                    <a class="page-link rounded-0" href="?page=
+
+                                            {{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
+                                    </a>
+                                {% endif %}
+                            </li>
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active"><a class="page-link"
+                                                                    href="?page=
+
+                                                                            {{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item "><a class="page-link"
+                                                              href="?page=
+
+                                                                      {{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link rounded-0" href="?page=
+
+                                            {{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %}
+            {#                end of pagination                 #}
+
+        </div>
+    </div>
+    <style>
+        .product-image {
+            width: 100%;
+            height: 300px; /* set the desired height for the images */
+            object-fit: cover; /* crop the images to fit the container */
+        }
+    </style>
+{% endblock %}

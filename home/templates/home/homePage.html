@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block additional_links %}
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="{% static 'img/carousel-1.jpg' %}" alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h5 class="text-white text-uppercase animated bounceInDown">Best Security Services</h5>
+                            <h1 class="display-1 text-white mb-md-4 animated zoomIn">Safe & Secure Home For Your
+                                Family</h1>
+                            <a href="{% url 'contactUs:contact' %}"
+                               class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">مشاوره
+                                امنیتی</a>
+                            <a href="{% url 'contactUs:contact' %}"
+                               class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">ثبت سفارش </a>
+                        </div>
+                    </div>
+                </div>
+                {#            <div class="carousel-item">#}
+                {#                <img class="w-100" src="{% static 'img/carousel-2.jpg' %}" alt="Image">#}
+                {#                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">#}
+                {#                    <div class="p-3" style="max-width: 900px;">#}
+                {#                        <h5 class="text-white text-uppercase animated bounceInDown">Best Security Services</h5>#}
+                {#                        <h1 class="display-1 text-white mb-md-4 animated zoomIn">Safe & Secure Home For Your Family</h1>#}
+                {#                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Get Quote</a>#}
+                {#                        <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#            <div class="carousel-item">#}
+                {#                <img class="w-100" src="{% static 'img/carousel-3.jpg' %}" alt="Image">#}
+                {#                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">#}
+                {#                    <div class="p-3" style="max-width: 900px;">#}
+                {#                        <h5 class="text-white text-uppercase animated bounceInDown">Best Security Services</h5>#}
+                {#                        <h1 class="display-1 text-white mb-md-4 animated zoomIn">Safe & Secure Home For Your Family</h1>#}
+                {#                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Get Quote</a>#}
+                {#                        <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.3s"
+                             src="{% static 'img/about.jpg' %}" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7" align="right">
+                    <div class="mb-4">
+                        <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">about us</h5>
+                        <h1 class="display-5 mb-0">{{ about.title }}</h1>
+                    </div>
+                    <h4 class="text-body fst-italic mb-4">{{ about.line2 }}</h4>
+                    <p class="mb-4">{{ about.line3 }}</p>
+                    <div class="row g-3">
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
+                            <div class="bg-primary d-flex flex-column justify-content-center text-center border-bottom border-5 border-secondary rounded p-3"
+                                 style="height: 200px;">
+                                {#                            <i class="fa fa-star fa-4x text-white mb-4"></i>#}
+                                <h4 class="text-white mb-0">افتخارات </h4>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.9s">
+                            <div class="bg-secondary d-flex flex-column justify-content-center text-center border-bottom border-5 border-primary rounded p-3"
+                                 style="height: 200px;">
+                                <i class="fa fa-award fa-4x text-white mb-4"></i>
+                                <h4 class="text-white mb-0">تجارب </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Pricing Plan Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" style="margin-bottom: 75px;">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                {#            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Pricing Plan</h5>#}
+                <h1 class="display-5 mb-0">جدیدترین محصولات امنیتی</h1>
+                <a class="text-primary text-uppercase " href="###">مشاهده همه محصولات </a>
+            </div>
+            <div class="row g-5">
+                {% for product in new_products %}
+
+
+                    {#__________________________________________________________________________________#}
+
+                    <div class="mx-2 max-w-sm bg-blue-200 rounded-lg shadow-md ">
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="p-8 rounded-t-lg product-image" src="{{ product.image.url }}"
+                                 alt="product image"/>
+                        </a>
+                        <div class="px-5 pb-5">
+                            <a href="{{ product.get_absolute_url }}">
+                                <h2 class="text-center text-3xl p-3">{{ product.title }}</h2>
+                            </a>
+                            <h5 class="text-right text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.preview }}</h5>
+                            <div class="flex flex-col justify-between">
+                                <span class="p-3 text-3xl font-bold text-gray-900 dark:text-white">{{ product.price }}</span>
+                                <a href="{{ product.get_absolute_url }}"
+                                   class="  h-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">مشاهده
+                                    جزییات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {#__________________________________________________________________________________#}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Pricing Plan End -->
+
+
+    <!-- Services Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" align="right">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h5>
+                <h1 class="display-5 mb-0">خدمات دوربین های مدار بسته و دزدگیر های امنیتی</h1>
+            </div>
+            <div class="row g-5">
+
+                {% for service in services %}
+
+                    <div class="col-lg-4 col-md-6 wow zoomIn " data-wow-delay="0.3s">
+                        <div class="service-item bg-light border-bottom border-5 border-primary rounded ">
+                            <div class="position-relative p-5">
+                                <i class="{{ service.svg_image }}"></i>
+                                <h1 class="mb-3 text-3xl">{{ service.title }}</h1>
+                                <p class="text-xl">{{ service.preview }}</p>
+                                <a class="text-lg" href="{{ service.get_absolute_url }}">اطلاعات بیشتر <i
+                                        class="bi bi-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Services End -->
+
+
+    <!-- Offer Start -->
+    <!-- Offer End -->
+
+
+    <!-- Team Start -->
+    <!-- Team End -->
+
+
+
+    <!-- Blog Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Blog Post</h5>
+                <h1 class="display-5 mb-0">جدید ترین مقالات وبلاگ </h1>
+            </div>
+            <div class="row g-5">
+                {% for article in articles %}
+                    <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
+                        <div class="blog-item">
+                            <div class="position-relative">
+                                <img
+                                        class="img-fluid w-100 rounded-top " src="
+                                        {% if article.image %}{{ article.image.url }}{% else %}{% static 'img/blog-1.jpg' %}{% endif %}"
+                                        alt="">
+                            </div>
+                            <div class="bg-primary rounded-bottom p-5" align="right">
+                                <div class="d-flex mb-3">
+                                    <span class="text-light text-uppercase">{{ article.auther }}</span>
+                                    <span class="text-light px-2">|</span>
+                                    <span class="text-light text-uppercase">{{ article.category.first }}</span>
+                                </div>
+                                <a class="h3 m-0 text-white"
+                                   href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Blog End -->
+    <style>
+        div.a {
+            height: 100px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px; /* set the desired height for the images */
+            object-fit: cover; /* crop the images to fit the container */
+        }
+    </style>
+{% endblock %}

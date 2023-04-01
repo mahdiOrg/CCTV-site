@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary p-5 hero-header mb-5">
+        <div class="row py-5">
+            <div class="col-12 text-center">
+                <h1 class="display-1 text-white animated zoomIn">{{ article.title }}</h1>
+                <a class="h4 text-white" href={% url 'home_app:home' %}> صفحه اصلی </a>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Blog Start -->
+    <div class="container py-5 wow fadeInUp" data-wow-delay="0.1s" align="right">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5">
+                    {% if article.image %}
+                        <img class="img-fluid w-100 rounded mb-5" src={{ article.image.url }} alt={{ article.title }}>
+                    {% else %}
+                        <img class="img-fluid w-100 rounded mb-5"
+                             src={% static 'img/blog-2.jpg' %} alt={{ article.title }}>
+                    {% endif %}
+
+                    <h1 class="mb-4">{{ article.title }}</h1>
+                    <p class="">{{ article.body }}</p>
+                </div>
+                <!-- Blog Detail End -->
+
+                <!-- Comment List Start -->
+                <div class="mb-5">
+                    <div class="mb-5">
+                        {% for comment in article.comments.all %}
+                            <div class="d-flex mb-4">
+                                <img src="{% static 'img/user.png' %}" class="img-fluid rounded"
+                                     style="width: 45px; height: 45px;">
+                                <div class="ps-3 " style="width: 100%;text-align: right">
+                                    <h6><a href="">{{ comment.user }}</a> <small><i>{{ comment.add_time }}</i></small>
+                                    </h6>
+                                    <p> {{ comment.text }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Comment List End -->
+
+                    <!-- Comment Form Start -->
+                    <div class="bg-light rounded p-5">
+                        <h2 class="mb-4 text-4xl" style="text-align:right">ارسال نظر</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-12 ">
+                                    {{ form.user }}
+                                </div>
+
+
+                                <div class="col-12">
+                                    {{ form.text }}
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Comment List End -->
+
+                <!-- Comment Form End -->
+            </div>
+            {% include 'include/sidebar.html' %}
+        </div>
+    </div>
+    <!-- Blog End -->
+
+{% endblock %}

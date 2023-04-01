@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary p-5 hero-header mb-5">
+        <div class="row py-5">
+            <div class="col-12 text-center">
+                <h1 class="display-1 text-white animated zoomIn">{{ product.title }}</h1>
+                <a class="h4 text-white" href={% url 'home_app:home' %}> صفحه اصلی </a>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Blog Start -->
+    <div class="container py-5 wow fadeInUp" data-wow-delay="0.1s" align="right">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5">
+                    {% if product.image %}
+                        <img class="img-fluid w-100 rounded mb-5" src={{ product.image.url }} alt={{ product.title }}>
+                    {% else %}
+                        <img class="img-fluid w-100 rounded mb-5"
+                             src={% static "img/blog-2.jpg" %} alt={{ product.title }}>
+
+                    {% endif %}
+                    <h1 class="mb-4">{{ product.title }}</h1>
+                    <p class="text-xl">{{ product.info }}</p>
+                </div>
+                <!-- Blog Detail End -->
+
+                <!-- Button trigger modal -->
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-2 ">
+                            {% if request.user.is_authenticated %}
+
+                                {% if is_liked %}
+                                    <a><i onclick="like({{ product.id }})" id="heart"
+                                          style="font-size: 35px; color: red; "
+                                          class="bi bi-heart-fill "></i>
+                                    </a><span id="count">{{ product.likes.all.count }}</span>
+                                {% else %}
+                                    <a onclick="like({{ product.id }})"><i id="heart"
+                                                                           style="font-size: 35px; color: red; "
+                                                                           class="bi bi-heart  "></i>
+                                    </a><span id="count">{{ product.likes.all.count }}</span>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'account:register' %}"><i id="heart"
+                                                                          style="font-size: 35px; color: red; "
+                                                                          class="bi bi-heart  "></i>
+                                </a><span id="count">{{ product.likes.all.count }}</span>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="col-8  ">
+                            <button type="button" class="btn btn-primary col-12 col-md-8" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                سفارش محصول
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-xl">متاسفانه در حال حاضر امکان سفارش و خرید محصول به صورت آنلاین وجود
+                                    ندارد</p>
+                                <p class="text-xl">برای ارتباط با ما و سفارش محصولات تماس بگیرید یا از طریق فرم داخل
+                                    سایت پیغام بگذارید</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary" href="tel:+98{{ phone }}">تماس</a>
+                                <a class="btn btn-secondary " href="{% url 'contactUs:contact' %}">ارسال درخواست</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- Comment List Start -->
+                <div class="mb-5">
+                    {% for comment in product.comments.all %}
+                        <div class="d-flex mb-4">
+                            <img src="{% static 'img/user.png' %}" class="img-fluid rounded"
+                                 style="width: 45px; height: 45px;">
+                            <div class="ps-3 " style="width: 100%;text-align: right">
+                                <h6><a href="">{{ comment.user.username }}</a>
+                                    <small><i>{{ comment.add_time }}</i></small></h6>
+                                <p> {{ comment.text }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Comment List End -->
+
+                <!-- Comment Form Start -->
+                <div class="bg-light rounded p-5">
+                    <h2 class="mb-4 text-4xl" style="text-align: right ">ارسال نظر</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            {#                            <div class="col-12 ">#}
+                            {#                                {{ form.user }}#}
+                            {#                            </div>#}
+
+
+                            <div class="col-12">
+                                {{ form.text }}
+                            </div>
+                            {% if request.user.is_authenticated %}
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+                                </div>
+                            {% else %}
+                                <div class="col-12">
+                                    <a class="btn btn-primary w-100 py-3" href="{% url "account:register" %}" >برای ارسال نظر وارد حساب خود شوید</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+                <!-- Comment Form End -->
+            </div>
+            {% include 'include/sidebar.html' %}
+        </div>
+    </div>
+    <!-- Blog End -->
+
+{% endblock %}
+
+<script>
+    $(document).ready(function () {
+        $('.like-btn').click(function () {
+            var productId = $(this).data('product-id');
+            $.ajax({
+                url: '/toggle-like/' + productId + '/',
+                success: function (response) {
+                    if (response.liked) {
+                        $('.like-btn[data-product-id="' + productId + '"] i').addClass('fa-heart-fill').css('color', 'red');
+                    } else {
+                        $('.like-btn[data-product-id="' + productId + '"] i').removeClass('fa-heart-fill').css('color', '');
+                    }
+                }
+            });
+        });
+    });
+</script>
+

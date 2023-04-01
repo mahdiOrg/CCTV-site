@@ -1,0 +1,97 @@
+{% extends  'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary p-5 hero-header mb-5">
+        <div class="row py-5">
+            <div class="col-12 text-center">
+                <h1 class="display-1 text-white animated zoomIn">مقالات ما</h1>
+                <a href="{% url 'home_app:home' %}" class="h4 text-white">صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Blog Start -->
+    <div class="container py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row g-5">
+            <!-- Blog list Start -->
+            <div class="col-lg-8">
+                <div class="row g-5" align="right">
+                    {% for article in articles %}
+                        <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+                            <div class="blog-item">
+                                <div class="position-relative">
+
+                                    {% if article.image %}
+                                        <img class="img-fluid w-100 rounded-top" src="{{ article.image.url }}" alt="">
+                                    {% else %}
+                                        <img class="img-fluid w-100 rounded-top" src="{% static 'img/blog-1.jpg' %}"
+                                             alt="">
+                                    {% endif %}
+
+                                </div>
+                                <div class="bg-primary rounded-bottom p-5">
+                                    <div class="d-flex mb-3">
+                                        <span class="text-light text-uppercase">{{ article.auther.first_name }}</span>
+                                        <span class="text-light px-2">|</span>
+                                        <span class="text-light text-uppercase">{{ article.category.first }}</span>
+                                    </div>
+                                    <a class="h3 m-0 text-white"
+                                       href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                    <P></P>
+                                    <a class="h5 m-0 text-white"
+                                       href="{{ article.get_absolute_url }}">...{{ article.body|slice:30 }}</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                    {#                    start pageination                     #}
+                    {% if page_obj.has_other_pages %}
+
+                        <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-lg m-0">
+                                    <li class="page-item ">
+                                        {% if page_obj.has_previous %}
+                                            <a class="page-link rounded-0"
+                                               href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                                <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                    {% for i in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            <li class="page-item active"><a class="page-link"
+                                                                            href="?page={{ i }}">{{ i }}</a></li>
+                                        {% else %}
+                                            <li class="page-item "><a class="page-link"
+                                                                      href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link rounded-0" href="?page={{ page_obj.next_page_number }}"
+                                               aria-label="Next">
+                                                <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span></a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    {% endif %}
+                    {#                end of pagination                 #}
+                </div>
+            </div>
+            <!-- Blog list End -->
+            {% include 'include/sidebar.html' %}
+        </div>
+    </div>
+    <!-- Blog End -->
+
+{% endblock %}

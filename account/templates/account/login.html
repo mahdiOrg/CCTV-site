@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Login to account</h5>
+                <h1 class="display-5 mb-0">ورود به حساب</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-7 wow slideInUp" data-wow-delay="0.3s">
+                    <div class="bg-light rounded p-5">
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-12 ">
+                                    <p align="right">نام کاربری </p>
+                                    {{ login_form.username }}
+                                </div>
+                                <div class="col-12">
+                                    <p align="right">گذرواژه </p>
+                                    {{ login_form.password }}
+                                </div>
+                                <hr>
+                                <span style="text-align: center;color: red;font-size: large">
+                                    {{ login_form.non_field_errors }}
+                                </span>
+
+                                {#                                <div class="col-12">#}
+                                {#                                    <button class="btn btn-primary w-100 py-3" type="submit">ارسال</button>#}
+                                {#                                </div>#}
+                                {#                                -----------------------------------------------------------------#}
+                                <!-- Button trigger modal -->
+                                <button class="btn btn-primary" type="submit"
+                                        style="text-align: center;">
+                                    ورود به حساب
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Error</h5>
+                                            </div>
+                                            <div class="modal-body" style="text-align: right;">
+                                                {{ login_form.non_field_errors }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {#                                -----------------------------------------------------------------#}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Contact End -->
+{% endblock %}

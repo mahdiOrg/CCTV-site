@@ -1,0 +1,202 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>SafeCam - CCTV Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    {#    <link href="{% static 'img/favicon.ico' %}" rel="icon">#}
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% block additional_links %}
+
+    {% endblock %}
+</head>
+
+<body>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+    <a href="{% url 'home_app:home' %}" class="navbar-brand ms-lg-5">
+        <h1 class="display-5 m-0 text-primary">Safe<span class="text-secondary">Cam</span></h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if request.user.is_authenticated %}
+        <div class="card border-0 bg-transparent">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <img src="{% static 'img/user.png' %}" alt="Profile Picture" class="rounded-circle"
+                         style="width: 3rem;">
+                </div>
+                <div class="col">
+                    <h5 class="m-0">{{ request.user.username }}</h5>
+                    <a  class="btn btn-danger btn-sm  rounded-xl  " href="{% url "account:logout" %}">Logout</a>
+
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="btn-group">
+            <a href="{% url 'account:login' %}" class="btn btn-outline-primary btn-sm">Login</a>
+            <a href="{% url 'account:register' %}" class="btn btn-outline-success btn-sm">Register</a>
+        </div>
+
+    {% endif %}
+
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="{% url 'home_app:home' %}"
+               class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">صفحه
+                اصلی</a>
+            <a href="{% url 'products:products_list' %}"
+               class="nav-item nav-link  {% if request.resolver_match.url_name == 'products_list' %}active{% endif %}">محصولات</a>
+            <a href="{% url 'products:service' %}"
+               class="nav-item nav-link  {% if request.resolver_match.url_name == 'service' %}active{% endif %}">خدمات</a>
+            <a href="{% url 'article:articles_list' %}"
+               class="nav-item nav-link  {% if request.resolver_match.url_name == 'articles_list' %}active{% endif %}">مقالات</a>
+            <a href="{% url 'contactUs:contact' %}"
+               class="nav-item nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">تماس با
+                ما</a>
+            {% for i in footer %}
+                <a href="tel:+98{{ i.phone_number }}"
+                   class="nav-item nav-link nav-contact bg-secondary text-white px-5 ms-lg-5"><i
+                        class="bi bi-telephone-outbound me-2"></i>0{{ i.phone_number }}</a>
+                </div>
+                </div>
+                </nav>
+                <!-- Navbar End -->
+
+
+
+
+                {% block content %}
+
+                {% endblock %}
+
+
+
+                <!-- Footer Start -->
+                <div class="container-fluid bg-dark text-light mt-5 py-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="container pt-5">
+                <div class="row g-5">
+
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Follow Us</h3>
+                    <div class="d-flex">
+
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2"
+                           href="https://wa.me/{{ i.whatsapp_number }}"><i
+                                class="fab fa-whatsapp fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2"
+                           href="https://t.me/{{ i.telegram_id }}"><i
+                                class="fab fa-telegram-plane fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2"
+                           href="https://eitaa.com/{{ i.eitaa_id }}">
+                            <svg fill="#ffffff" width="40px" height="40px" viewBox="0 2 20 30" role="img"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.968 23.942a6.624 6.624 0 0 1-2.332-.83c-1.62-.929-2.829-2.593-3.217-4.426-.151-.717-.17-1.623-.15-7.207C.288 5.47.274 5.78.56 4.79c.142-.493.537-1.34.823-1.767C2.438 1.453 3.99.445 5.913.08c.384-.073.94-.08 6.056-.08 6.251 0 6.045-.009 7.066.314a6.807 6.807 0 0 1 4.314 4.184c.33.937.346 1.087.369 3.555l.02 2.23-.391.268c-.558.381-1.29 1.06-2.316 2.15-1.182 1.256-2.376 2.42-2.982 2.907-1.309 1.051-2.508 1.651-3.726 1.864-.634.11-1.682.067-2.302-.095-.553-.144-.517-.168-.726.464a6.355 6.355 0 0 0-.318 1.546l-.031.407-.146-.03c-1.215-.241-2.419-1.285-2.884-2.5a3.583 3.583 0 0 1-.26-1.219l-.016-.34-.309-.284c-.644-.59-1.063-1.312-1.195-2.061-.212-1.193.34-2.542 1.538-3.756 1.264-1.283 3.127-2.29 4.953-2.68.658-.14 1.818-.177 2.403-.075 1.138.198 2.067.773 2.645 1.639.182.271.195.31.177.555a.812.812 0 0 1-.183.493c-.465.651-1.848 1.348-3.336 1.68-2.625.585-4.294-.142-4.033-1.759.026-.163.04-.304.031-.313-.032-.032-.293.104-.575.3-.479.334-.903.984-1.05 1.607-.036.156-.05.406-.034.65.02.331.053.454.192.736.092.186.275.45.408.589l.24.251-.096.122a4.845 4.845 0 0 0-.677 1.217 3.635 3.635 0 0 0-.105 1.815c.103.461.421 1.095.739 1.468.242.285.797.764.886.764.024 0 .044-.048.044-.106.001-.23.184-.973.326-1.327.423-1.058 1.351-1.96 2.82-2.74.245-.13.952-.47 1.572-.757 1.36-.63 2.103-1.015 2.511-1.305 1.176-.833 1.903-2.065 2.14-3.625.086-.57.086-1.634 0-2.207-.368-2.438-2.195-4.096-4.818-4.37-2.925-.307-6.648 1.953-8.942 5.427-1.116 1.69-1.87 3.565-2.187 5.443-.123.728-.169 2.08-.093 2.75.193 1.704.822 3.078 1.903 4.156a6.531 6.531 0 0 0 1.87 1.313c2.368 1.13 4.99 1.155 7.295.071.996-.469 1.974-1.196 3.023-2.25 1.02-1.025 1.71-1.88 3.592-4.458 1.04-1.423 1.864-2.368 2.272-2.605l.15-.086-.019 3.091c-.018 2.993-.022 3.107-.123 3.561-.6 2.678-2.54 4.636-5.195 5.242l-.468.107-5.775.01c-4.734.008-5.85-.002-6.19-.056z"/>
+                            </svg>
+                        </a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded"
+                           href="https://instagram.com/{{ i.instagram_username }}"><i
+                                class="fab fa-instagram fw-normal"></i></a>
+
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2" href="{% url 'home_app:home' %}">خانه<i
+                                class="bi bi-arrow-left text-primary me-2"></i></a>
+                        <a class="text-light mb-2" href="{% url 'products:products_list' %}">محصولات<i
+                                class="bi bi-arrow-left text-primary me-2"></i></a>
+                        <a class="text-light mb-2" href="{% url 'article:articles_list' %}">مقالات<i
+                                class="bi bi-arrow-left text-primary me-2"></i></a>
+                        <a class="text-light mb-2" href="{% url 'products:service' %}">خدمات ما<i
+                                class="bi bi-arrow-left text-primary me-2"></i></a>
+                        <a class="text-light mb-2" href="">تماس با ما<i
+                                class="bi bi-arrow-left text-primary me-2"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">ارتباط با ما</h3>
+                    {% if i.address %}
+                        <p class="mb-2">{{ i.address }}<i class="bi bi-geo-alt text-primary me-2"></i>
+                        </p>{% endif %}
+                    <p class="mb-2">{{ i.email }}<i class="bi bi-envelope-open text-primary me-2"></i></p>
+                    <p class="mb-0">{{ i.phone_number }}<i class="bi bi-telephone text-primary me-2"></i></p>
+                </div>
+            {% endfor %}
+            <div class="col-12">
+                <form class="mx-auto" style="max-width: 600px;">
+                </form>
+            </div>
+            </div>
+            </div>
+            </div>
+<div class="container-fluid bg-primary text-light py-4">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-md-6 text-center text-md-end">
+                <p class="mb-0">Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML
+                    Codex</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-secondary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<script src="{% static 'js/like.js' %}"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block additional_scripts %}
+
+{% endblock %}
+</body>
+
+</html>

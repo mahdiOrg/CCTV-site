@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary p-5 hero-header mb-5">
+        <div class="row py-5">
+            <div class="col-12 text-center">
+                <h1 class="display-1 text-white animated zoomIn">خدمات ما</h1>
+                <a href="" class="h4 text-white">صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Services Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" align="right">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h5>
+                <h1 class="display-5 mb-0">خدمات دوربین های مدار بسته و دزدگیر های امنیتی</h1>
+            </div>
+            <div class="row g-5">
+                {% for service in service_list %}
+
+                    <div class="col-lg-4 col-md-6 wow zoomIn " data-wow-delay="0.3s">
+                        <div class="service-item bg-light border-bottom border-5 border-primary rounded ">
+                            <div class="position-relative p-5">
+                                <i class="{{ service.svg_image }}"></i>
+                                <h3 class="mb-3">{{ service.title }}</h3>
+                                <p>{{ service.preview }}</p>
+                                <a class="text-lg" href="{{ service.get_absolute_url }}">اطلاعات بیشتر <i
+                                        class="bi bi-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Services End -->
+
+
+{% endblock %}
